@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', true);
 
 $host = 'localhost';
 $db = 'product_db';
@@ -27,15 +29,21 @@ file_put_contents('log.txt', $logString, FILE_APPEND);
 $array = json_decode($result, true);
 
 foreach ($array['product'] as $product) {
-print_r($product);
+    print_r($product);
 
-    $exist = $conn->query("SELECT * FROM table WHERE unid = :unid, quantity = :quantity, scu = :scu, barcode = :barcode, warehouse = :warehouse, size = :size", $product);
-    if ($exist->fetch()) {
-        //Do update data
-        $conn->query("UPDATE table SET unid = :unid, quantity = :quantity, scu = :scu, barcode = :barcode, warehouse = :warehouse, size = :size WHERE unid = :unid", $product);
+        $query = $conn->prepare("SELECT * FROM table WHERE unid = :unid, quantity = :quantity, scu = :scu, barcode = :barcode, warehouse = :warehouse, size = :size");
+        $result = $query->execute($product);
+        $query->fetchAll();
+
+    if ($query->fetch()) {
+        $query = ("UPDATE table SET unid = :unid, quantity = :quantity, scu = :scu, barcode = :barcode, warehouse = :warehouse, size = :size WHERE unid = :unid");
+        $result = $query->execute($product);
+        $query->fetchAll();
 
     }else {
-        $conn->query("INSERT INTO products (unid, quantity,scu, barcode, warehouse, size) VALUES (:unid, :quantity, :scu, :barcode, :warehouse, :size)", $product );
+        $query = $conn->prepare("INSERT INTO products (unid, quantity, scu, barcode, warehouse, size) VALUES (:unid, :quantity, :scu, :barcode, :warehouse, :size)");
+        $result = $query->execute($product);
+        $query->fetchAll();
     }
 }
 
