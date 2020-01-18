@@ -628,3 +628,33 @@ Content received: {
 	]
 
 }
+Content received: {
+
+	"product":[
+		{
+			"unid": "100108",
+			"quantity": "1",
+			"scu": "scu_1",
+			"barcode": "5611165446415",
+			"warehouse": "Склад на Софии",
+			"size": "L"
+		}
+	
+	]
+
+}
+Content received: {
+
+	"product":[
+		{
+			"unid": "100108",
+			"quantity": "1",
+			"scu": "scu_1",
+			"barcode": "5611165446415",
+			"warehouse": "Склад на Софии",
+			"size": "L"
+		}
+	
+	]
+
+}

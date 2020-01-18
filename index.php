@@ -28,8 +28,8 @@ $array = json_decode($result, true);
 
 foreach ($array['product'] as $product) {
 print_r($product);
-//die;
-    $exist = $conn->query("SELECT * FROM table WHERE unid = :unid", $product);
+
+    $exist = $conn->query("SELECT * FROM table WHERE unid = :unid, quantity = :quantity, scu = :scu, barcode = :barcode, warehouse = :warehouse, size = :size", $product);
     if ($exist->fetch()) {
         //Do update data
         $conn->query("UPDATE table SET unid = :unid, quantity = :quantity, scu = :scu, barcode = :barcode, warehouse = :warehouse, size = :size WHERE unid = :unid", $product);
